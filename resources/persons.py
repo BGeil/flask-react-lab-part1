@@ -13,6 +13,6 @@ def get_all_persons():
 	try:
 		persons = [model_to_dict(person) for person in models.Person.select()]
 		print(persons)
-		return jsonify(data=persons, status={"code": 200, "message": "Success"})
-    except models.DoesNotExist:
-        return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
+		return jsonify(data=persons, status={"code": 200, "message": "Success"}), 200
+	except models.DoesNotExist:
+		return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"}), 401
