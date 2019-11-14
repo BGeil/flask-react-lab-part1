@@ -38,7 +38,7 @@ def show_person(id):
 	return jsonify(data=model_to_dict(person), status={"code":201, "message": "Success"})
 
 # update route
-@person.route('<id>', methods=["PUT"])
+@person.route('/<id>', methods=["PUT"])
 def update_person(id):
 	payload =  request.get_json()
 	print(payload)
@@ -52,6 +52,12 @@ def update_person(id):
 
 	return jsonify(data=person_dict, status={"code": 200, "message": "resource updated"})
 
+# delete route
+@person.route('/<id>', methods=["Delete"])
+def delete_person(id):
+	query = models.Person.delete().where(models.Person.id == id)
+	query.execute()
+	return jsonify(data='resource successfully deleted', status={"code": 200, "message": "resource deleted successfully"})
 
 
 
