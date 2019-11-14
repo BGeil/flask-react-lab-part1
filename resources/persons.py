@@ -36,3 +36,22 @@ def show_person(id):
 	print(id)
 	person = models.Person.get_by_id(id)
 	return jsonify(data=model_to_dict(person), status={"code":201, "message": "Success"})
+
+# update route
+@person.route('<id>', methods=["PUT"])
+def update_person(id):
+	payload =  request.get_json()
+	print(payload)
+
+	query = models.Person.update(**payload).where(models.Person.id == id)
+	query.execute()
+	print(query)
+
+	person = models.Person.get_by_id(id)
+	person_dict = model_to_dict(person)
+
+	return jsonify(data=person_dict, status={"code": 200, "message": "resource updated"})
+
+
+
+
